@@ -26,7 +26,7 @@
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input v-model="loginForm.password" />
+        <el-input v-model="loginForm.password" type="password" />
       </el-form-item>
       <el-button class="loginBtn" :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       loginForm: {
-        mobile: '13800000002',
+        mobile: '13800000004',
         password: '123456'
       },
       loading: false,
