@@ -2,7 +2,7 @@
   <div class="navbar">
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
     <div class="app-breadcrumb">
-      江苏传智播客教育科技股份有限公司
+      {{ companyName }}
       <span class="breadBtn">体验版</span>
     </div>
     <!-- <breadcrumb class="breadcrumb-container" /> -->
@@ -10,10 +10,10 @@
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img
-            src="http://destiny001.gitee.io/image/monkey_02.jpg"
+            :src="staffPhoto"
             class="user-avatar"
           >
-          <span>用户名</span>
+          <span>{{ name }}</span>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -33,7 +33,6 @@
 import { mapGetters } from 'vuex'
 // import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-
 export default {
   components: {
     // Breadcrumb,
@@ -42,7 +41,9 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'name',
+      'companyName',
+      'staffPhoto'
     ])
   },
   methods: {

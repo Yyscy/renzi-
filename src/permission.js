@@ -9,8 +9,9 @@ const whiteList = ['/login', '/404']
 router.beforeEach((to, from, next) => {
   const token = store.state.user.token
   if (token) {
-  // 登录
-  // 是否进入登录页
+    store.dispatch('user/gituserInfo')
+    // 登录
+    // 是否进入登录页
     if (to.path === '/login') {
       // 1.1 是 跳转到首页
       next('/')
