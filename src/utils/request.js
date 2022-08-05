@@ -17,14 +17,14 @@ function isTimeout() {
 }
 // 请求拦截器
 service.interceptors.request.use(async(config) => {
-  if (store.state.user.token) {
+  if (store?.getters?.token) {
     if (isTimeout()) {
       await store.dispatch('user/logout')
       router.push('/login')
       return process.reject(new Error('登录过期'))
     } else {
       // 携带Token
-      config.headers.Authorization = `Bearer ${store.state.user.token}`
+      config.headers.Authorization = `Bearer ${store?.getters?.token}`
     }
   }
   return config

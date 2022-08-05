@@ -24,7 +24,6 @@ export default {
     // 获取用户信息
     async gituserInfo({ commit }) {
       const userBaseInfo = await getUserInfo()
-      console.log(userBaseInfo.userId)
       const userInfo = await getUserDetail(userBaseInfo.userId)
       commit('setuserInfo', { ...userBaseInfo, ...userInfo })
     },
