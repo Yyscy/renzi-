@@ -115,3 +115,23 @@ export function param2Obj(url) {
   })
   return obj
 }
+
+/**
+ * 处理为 treeslist
+ * @param {Array} lists 筛选数据
+ * @param {String} pid 筛选
+ * @returns {Array}
+ */
+export function transListToTree(lists, pid) {
+  const arr = []
+  lists.forEach((item) => {
+    if (item.pid === pid) {
+      const children = transListToTree(lists, item.id)
+      if (children.length) {
+        item.children = children
+      }
+      arr.push(item)
+    }
+  })
+  return arr
+}
