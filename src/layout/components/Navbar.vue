@@ -11,7 +11,7 @@
         <div class="avatar-wrapper">
           <img
             v-imgError="defaultImg"
-            :src="staffPhoto+'33'"
+            :src="staffPhoto"
             class="user-avatar"
           >
           <span>{{ name }}</span>

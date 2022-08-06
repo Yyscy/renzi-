@@ -2,14 +2,15 @@
   <div class="dashboard-container">
     <div class="app-container">
       <el-card class="box-card">
-        <DreeTools :is-root="true" :tree-node="campanr" />
-        <el-tree :data="treeData" :props="defaultProps">
+        <DreeTools :is-root="true" :tree-node="campanr" @add="addxdepartment" />
+        <el-tree :data="treeData" :props="defaultProps" default-expand-all>
           <template v-slot="{ data }">
-            <DreeTools :tree-node="data" />
+            <DreeTools :tree-node="data" @refresh="loadDepts" @add="addxdepartment" />
           </template>
         </el-tree>
       </el-card>
     </div>
+    <addDept :visible.sync="dialogVisible" :treenodes="treeNode" />
   </div>
 </template>
 
@@ -17,9 +18,11 @@
 import DreeTools from './components/dree-tools.vue'
 import { transListToTree } from '@/utils'
 import { getDeptsApai } from '@/api/departments'
+import addDept from './components/add-dept.vue'
 export default {
   components: {
-    DreeTools
+    DreeTools,
+    addDept
   },
   data() {
     return {
@@ -28,7 +31,9 @@ export default {
       defaultProps: {
         label: 'name'
       },
-      campanr: { name: '传智教育', manager: '负责人' }
+      campanr: { name: '传智教育', manager: '负责人' },
+      dialogVisible: false,
+      treeNode: {}
     }
   },
   created() {
@@ -38,6 +43,10 @@ export default {
     async loadDepts() {
       const res = await getDeptsApai()
       this.treeData = transListToTree(res.depts, '')
+    },
+    addxdepartment(treeNode) {
+      this.dialogVisible = true
+      this.treeNode = treeNode
     }
   }
 }
