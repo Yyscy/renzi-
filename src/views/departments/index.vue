@@ -1,23 +1,23 @@
 <template>
   <div class="dashboard-container">
-    <div class="app-container">
+    <div v-loading="loading" class="app-container">
       <el-card class="box-card">
         <DreeTools :is-root="true" :tree-node="campanr" @add="addxdepartment" />
         <el-tree :data="treeData" :props="defaultProps" default-expand-all>
           <template v-slot="{ data }">
-            <DreeTools :tree-node="data" @refresh="loadDepts" @add="addxdepartment" />
+            <DreeTools :tree-node="data" @refresh="loadDepts" @add="addxdepartment" @editDepts="editDepts" />
           </template>
         </el-tree>
       </el-card>
     </div>
-    <addDept :visible.sync="dialogVisible" :treenodes="treeNode" />
+    <addDept ref="addDept" :visible.sync="dialogVisible" :treenodes="treeNode" />
   </div>
 </template>
 
 <script>
-import DreeTools from './components/dree-tools.vue'
 import { transListToTree } from '@/utils'
 import { getDeptsApai } from '@/api/departments'
+import DreeTools from './components/dree-tools.vue'
 import addDept from './components/add-dept.vue'
 export default {
   components: {
@@ -33,7 +33,8 @@ export default {
       },
       campanr: { name: '传智教育', manager: '负责人' },
       dialogVisible: false,
-      treeNode: {}
+      treeNode: {},
+      loading: false
     }
   },
   created() {
@@ -41,12 +42,24 @@ export default {
   },
   methods: {
     async loadDepts() {
-      const res = await getDeptsApai()
-      this.treeData = transListToTree(res.depts, '')
+      this.loading = true
+      try {
+        const res = await getDeptsApai()
+        this.treeData = transListToTree(res.depts, '')
+      } finally {
+        this.loading = false
+      }
     },
     addxdepartment(treeNode) {
       this.dialogVisible = true
       this.treeNode = treeNode
+    },
+    // 编辑部门节点
+    editDepts(node) {
+      // 首先打开弹层
+      this.dialogVisible = true
+      this.treeNode = node // 赋值操作的节点
+      this.$refs.addDept.getDepartDetail(node.id)
     }
   }
 }
