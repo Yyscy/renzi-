@@ -81,7 +81,6 @@ export default {
         await this.$store.dispatch('user/gitToken', this.loginForm)
         this.$router.push('/')
         this.$message.success('登录成功')
-        console.log('登录')
       } catch (e) {
         // 失败
       } finally {
