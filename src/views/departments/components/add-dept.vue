@@ -1,5 +1,4 @@
 <template>
-
   <el-dialog :title="showTitle" :visible="visible" width="50%" @close="btnCancel">
     <el-form ref="deptForm" :model="formData" :rules="formRules" label-width="100px">
       <el-form-item label="部门名称" prop="name">

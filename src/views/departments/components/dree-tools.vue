@@ -83,5 +83,7 @@ export default {
 </script>
 
 <style scoped>
-
+   .label-text {
+      font-weight: 400;
+    }
 </style>
