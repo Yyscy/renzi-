@@ -31,7 +31,28 @@
             />
           </div>
         </el-tab-pane>
-        <el-tab-pane label="公司信息" name="second">公司信息</el-tab-pane>
+        <el-tab-pane label="公司信息" name="second">
+          <el-alert
+            title="对公司名称、公司地址、营业执照、公司地区的更新，将使得公司资料被重新审核，请谨慎修改"
+            type="info"
+            show-icon
+            :closable="false"
+          />
+          <el-form label-width="120px" style="margin-top:50px">
+            <el-form-item label="公司名称">
+              <el-input v-model="formData.name" disabled style="width:400px" />
+            </el-form-item>
+            <el-form-item label="公司地址">
+              <el-input v-model="formData.companyAddress" disabled style="width:400px" />
+            </el-form-item>
+            <el-form-item label="邮箱">
+              <el-input v-model="formData.mailbox" disabled style="width:400px" />
+            </el-form-item>
+            <el-form-item label="备注">
+              <el-input v-model="formData.remarks" type="textarea" :rows="3" disabled style="width:400px" />
+            </el-form-item>
+          </el-form>
+        </el-tab-pane>
       </el-tabs>
     </div>
     <el-dialog
@@ -59,6 +80,7 @@
 
 <script>
 import { getRoeslApi, addRoeslApi, RemoveRoeslApi } from '@/api/role'
+import { getCompanyInfo } from '@/api/settng'
 export default {
   data() {
     return {
@@ -81,12 +103,14 @@ export default {
         description: [
           { required: true, message: '请输入角色描述', trigger: 'blur' }
         ]
-      }
+      },
+      formData: {}
     }
   },
 
   created() {
     this.getRoesl()
+    this.getCompanyInfo()
   },
 
   methods: {
@@ -96,6 +120,12 @@ export default {
       this.tableData = arr.rows
       this.total = arr.total
       console.log(arr)
+    },
+    // 获取的公司的信息
+    async getCompanyInfo() {
+      this.formData = this.formData = await getCompanyInfo(
+        this.$store.state.user.userInfo.companyId
+      )
     },
     // 添加弹框
     appClick() {

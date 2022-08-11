@@ -6,10 +6,12 @@ import store from '@/store'
 // from: 来自那个路由接口
 // next:跳转到指定路由，没有调用无法进入
 const whiteList = ['/login', '/404']
-router.beforeEach((to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   const token = store.state.user.token
   if (token) {
-    store.dispatch('user/gituserInfo')
+    if (!store.state.user.userInfo.userId) {
+      await store.dispatch('user/gituserInfo')
+    }
     // 登录
     // 是否进入登录页
     if (to.path === '/login') {
