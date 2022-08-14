@@ -423,6 +423,16 @@ export default {
     '姓名': 'username',
     '转正日期': 'correctionTime',
     '工号': 'workNumber'
+  },
+  // 表头对应关系
+  headers: {
+    '姓名': 'username',
+    '手机号': 'mobile',
+    '入职日期': 'timeOfEntry',
+    '聘用形式': 'formOfEmployment',
+    '转正日期': 'correctionTime',
+    '工号': 'workNumber',
+    '部门': 'departmentName'
   }
 
 }

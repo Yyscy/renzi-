@@ -5,7 +5,7 @@
         <span slot="left-tag">共166条记录</span>
         <template slot="right">
           <el-button size="small" type="warning" @click="$router.push('/import')">导入</el-button>
-          <el-button size="small" type="danger">导出</el-button>
+          <el-button size="small" type="danger" @click="exportelxe">导出</el-button>
           <el-button size="small" type="primary" @click="showAddEmployees=true">新增员工</el-button>
         </template>
       </page-tools>
@@ -69,6 +69,7 @@
 import { getEmployeesInfoApi, delEmployee } from '@/api/employees'
 import employees from '@/constant/employees'
 import addEmployees from './components/add-employees.vue'
+const { headers, hireType } = employees
 export default {
 
   // 组件
@@ -126,6 +127,34 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    async exportelxe() {
+      const { rows } = await getEmployeesInfoApi({
+        page: 1, // 当前页码
+        size: this.total
+      })
+      const header = Object.keys(headers)
+      const data = rows.map(item => {
+        return header.map(h => {
+          if (h === '聘用形式') {
+            const findItem = hireType.find((hire) => {
+              return hire.id === item[headers[h]]
+            })
+            return findItem ? findItem.value : '未知'
+          } else {
+            return item[headers[h]]
+          }
+        })
+      })
+      import('@/vendor/Export2Excel').then(excel => {
+        excel.export_json_to_excel({
+          header: header, // 表头 必填
+          data, // 具体数据 必填
+          filename: 'excel-list', // 非必填
+          autoWidth: true, // 非必填
+          bookType: 'xlsx' // 非必填
+        })
+      })
     }
   }
 
