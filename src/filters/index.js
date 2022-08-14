@@ -1,5 +1,4 @@
 // import parseTime, formatTime and set to filter
-
 /**
  * Show plural label if time is plural number
  * @param {number} time
@@ -396,4 +395,9 @@ export function getBlob(response) {
 // 图片 blob 流转化为可用 src
 export function imgHandle(obj) {
   return window.URL.createObjectURL(obj)
+}
+
+import dayjs from 'dayjs'
+export const formatTimes = (val) => {
+  return dayjs(val).format('YYYY-MM-DD')
 }

@@ -415,6 +415,15 @@ export default {
       id: '3',
       value: '离职'
     }
-  ]
+  ],
+  // 如果是导入员工
+  importMapKeyOath: {
+    '入职日期': 'timeOfEntry',
+    '手机号': 'mobile',
+    '姓名': 'username',
+    '转正日期': 'correctionTime',
+    '工号': 'workNumber'
+  }
+
 }
 

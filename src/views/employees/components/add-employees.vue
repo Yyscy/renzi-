@@ -158,7 +158,6 @@ export default {
         timeOfEntry: '',
         correctionTime: ''
       }
-      this.$refs.addEmployee.resetFields() // 重置校验结果
       this.$emit('update:visible', false)
     },
     async getDepartments() {
