@@ -21,7 +21,11 @@
           <el-tab-pane label="个人详情">
             <userInfo />
           </el-tab-pane>
-          <el-tab-pane label="岗位信息" />
+          <el-tab-pane label="岗位信息">
+            <router-link :to="`/employees/print/${userId}?type=job`">
+              <i class="el-icon-printer" />
+            </router-link>
+          </el-tab-pane>
         </el-tabs>
       </el-card>
     </div>
@@ -29,6 +33,7 @@
 </template>
 
 <script>
+
 import { getUserDetailById } from '@/api/user'
 import { saveUserDetailById } from '@/api/employees'
 import userInfo from './components/user-info.vue'

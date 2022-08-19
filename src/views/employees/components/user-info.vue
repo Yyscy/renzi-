@@ -3,6 +3,9 @@
     <!-- 个人信息 -->
     <el-form label-width="220px">
       <!-- 工号 入职时间 -->
+      <router-link :to="`/employees/print/${userId}?type=personal`">
+        <i class="el-icon-printer" />
+      </router-link>
       <el-row class="inline-info">
         <el-col :span="12">
           <el-form-item label="工号">

@@ -29,7 +29,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 // 全局组件
 import components from '@/components'
-
+import Print from 'vue-print-nb'
+Vue.use(Print)
 Vue.use(components)
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
